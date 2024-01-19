@@ -1,0 +1,17 @@
+<div>
+  <%= form_with url: '/parse_site', method: 'post', id: 'parseForm' do |form| %>
+    <%= form.label :url, 'Site URL:' %>
+    <%= form.text_field :url, id: 'urlField' %>
+    <%= form.submit 'Parse' %>
+  <% end %>
+</div>
+
+<% if @title %>
+  <p>Title: <%= @title %></p>
+<% end %>
+
+<div>
+  <% if @image_src %>
+    <%= image_tag @image_src %>
+  <% end %>
+</div>

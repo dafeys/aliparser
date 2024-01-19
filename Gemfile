@@ -62,3 +62,5 @@ group :development do
 end
 
 gem "devise"
+gem "selenium-webdriver"
+gem "browsermob-proxy"
