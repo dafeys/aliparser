@@ -11,3 +11,10 @@ Features
 
 ![image](https://github.com/dafeys/aliparser/assets/36037839/00bac35e-7c9c-41cf-9b0b-626854365ea6)
 
+Installation
+* Clone the repository to your local machine.
+* Navigate to the project directory.
+* Run bundle install to install the required Ruby gems.
+* Run rails assets:precompile to compile the assets.
+* U need to have BrowserMob Proxy. This is used by the PageParserService to parse the Alibaba product pages with custom headers via selenium
+* Run bin/dev to start the application.
