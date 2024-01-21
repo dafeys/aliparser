@@ -1,4 +1,6 @@
 class PagesController < ApplicationController
+  before_action :authenticate_user!
+
   def index
   end
 
@@ -11,9 +13,18 @@ class PagesController < ApplicationController
     service = PageParserService.new(params[:url], @rate)
     @data = service.call
 
-    # puts "=" * 100
-    # puts "#{@data[:title]}, #{@data[:seller]}, #{@data[:attributes]}, #{@data[:price]}"
+    if @data
+      render turbo_stream: turbo_stream.replace(:parsed_data, partial: 'pages/parsed_data', locals: { data: @data })
+    else
+      render turbo_stream: turbo_stream.replace(:parsed_data, "No data available")
+    end
+  end
 
-    render :index
+  private
+
+  def authenticate_user!
+    unless user_signed_in?
+      redirect_to new_user_session_path, alert: 'Please sign in to continue'
+    end
   end
 end

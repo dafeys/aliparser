@@ -1,0 +1,20 @@
+<div class="max-w-2xl p-4 mx-auto mt-8 overflow-hidden bg-white border border-gray-200 rounded-lg shadow-lg product">
+
+  <% if data.present? %>
+    <h2 class="mb-2 text-xl font-semibold text-center text-gray-900"><%= data[:title] %></h2>
+    <%= image_tag data[:image_src], class: "h-36 object-contain" %>
+    <div class="p-4">
+      <p class="text-sm text-gray-700"><strong>Продавець:</strong> <%= data[:seller] %></p>
+      <p class="text-sm text-gray-700"><strong>Характеристики:</strong> <%= data[:attributes] %></p>
+      <p class="text-sm text-gray-700"><strong>Ціна зразка: </strong><%= data[:converted_price] %> Грн.</p>
+      <% data[:price_data].each do |item| %>
+        <div class="mt-4">
+          <p class="text-sm text-gray-700">Кількість: <%= item[:quality] %></p>
+          <p class="text-sm text-gray-700">Ціна: <%= item[:price] %> Грн.</p>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>Вставте ваше посилання і запустіть просес парсингу, процес зазвичай триває близько 5 секунд</p>
+  <% end %>
+</div>
