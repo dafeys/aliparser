@@ -1,7 +1,9 @@
-<header class="bg-blue-500 text-white p-4">
-  <div class="container mx-auto flex justify-between items-center">
+<header class="p-4 text-white bg-blue-500">
+  <div class="container flex items-center justify-between mx-auto">
     <%= link_to 'Home', root_path, class: "text-2xl font-bold" %>
-
+    <% if @rate %>
+      <p class="text-lg font-semibold text-white">Курс з Монобанку: <%= @rate %></p>
+    <% end %>
     <% if user_signed_in? %>
       <div class="flex items-center">
         <p class="mr-4">Hello, <%= current_user.email %></p>

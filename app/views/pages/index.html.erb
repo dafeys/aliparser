@@ -1,17 +1,44 @@
-<div>
-  <%= form_with url: '/parse_site', method: 'post', id: 'parseForm' do |form| %>
-    <%= form.label :url, 'Site URL:' %>
-    <%= form.text_field :url, id: 'urlField' %>
-    <%= form.submit 'Parse' %>
-  <% end %>
-</div>
+<div class="flex flex-col items-center min-h-screen bg-gray-100">
+  <div class="max-w-md px-8 pt-4 pb-4 m-4 bg-white rounded shadow-md">
+    <%= form_with url: '/parse_site', method: 'post', id: 'parseForm', class: 'max-w-md mx-auto' do |form| %>
+      <div class="flex items-center mb-4">
+        <%= form.label :url, 'URL:', class: 'text-gray-700 text-sm font-bold mr-2' %>
+        <%= form.text_field :url, id: 'urlField', class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-4 flex-grow' %>
+        <%= form.submit 'Parse', class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' %>
+      </div>
+    <% end %>
+  </div>
 
-<% if @title %>
-  <p>Title: <%= @title %></p>
-<% end %>
+  <% if @data %>
+    <div class="max-w-2xl p-4 mx-auto mt-8 overflow-hidden bg-white border border-gray-200 rounded-lg shadow-lg product">
+      <% if @data[:title] %>
+        <h2 class="mb-2 text-xl font-semibold text-center text-gray-900"><%= @data[:title] %></h2>
+      <% end %>
 
-<div>
-  <% if @image_src %>
-    <%= image_tag @image_src %>
+      <% if @data[:image_src] %>
+        <%= image_tag @data[:image_src], class: "h-32 object-contain" %>
+      <% end %>
+
+      <div class="p-4">
+        <% if @data[:seller] %>
+          <p class="text-sm text-gray-700"><strong>Продавець:</strong> <%= @data[:seller] %></p>
+        <% end %>
+
+        <% if @data[:attributes] %>
+          <p class="text-sm text-gray-700"><strong>Характеристики:</strong> <%= @data[:attributes] %></p>
+        <% end %>
+
+        <% if @data[:price] %>
+          <p class="text-sm text-gray-700"><strong>Ціна зразка: </strong><%= @data[:converted_price] %></p>
+        <% end %>
+
+        <% @data[:price_data].each do |item| %>
+          <div class="mt-4">
+            <p class="text-sm text-gray-700">Кількість: <%= item[:quality] %></p>
+            <p class="text-sm text-gray-700">Ціна: <%= item[:price] %> Грн.</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
   <% end %>
 </div>
