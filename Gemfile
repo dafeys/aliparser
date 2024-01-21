@@ -62,5 +62,8 @@ group :development do
 end
 
 gem "devise"
+gem "dotenv-rails"
+gem "rest-client"
 gem "selenium-webdriver"
 gem "browsermob-proxy"
+gem "easy_translate"

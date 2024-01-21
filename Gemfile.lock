@@ -105,8 +105,15 @@ GEM
       responders
       warden (~> 1.2.3)
     domain_name (0.6.20240107)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     drb (2.2.0)
       ruby2_keywords
+    easy_translate (0.5.1)
+      thread
+      thread_safe
     erubi (1.12.0)
     ffi (1.16.3)
     globalid (1.2.1)
@@ -244,6 +251,8 @@ GEM
     tailwindcss-rails (2.3.0-x86_64-linux)
       railties (>= 6.0.0)
     thor (1.3.0)
+    thread (0.2.2)
+    thread_safe (0.3.6)
     timeout (0.4.1)
     turbo-rails (1.5.0)
       actionpack (>= 6.0.0)
@@ -273,11 +282,14 @@ DEPENDENCIES
   browsermob-proxy
   debug
   devise
+  dotenv-rails
+  easy_translate
   importmap-rails
   jbuilder
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.1.2)
+  rest-client
   selenium-webdriver
   sprockets-rails
   stimulus-rails
