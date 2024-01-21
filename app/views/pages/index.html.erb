@@ -29,7 +29,7 @@
         <% end %>
 
         <% if @data[:price] %>
-          <p class="text-sm text-gray-700"><strong>Ціна зразка: </strong><%= @data[:converted_price] %></p>
+          <p class="text-sm text-gray-700"><strong>Ціна зразка: </strong><%= @data[:converted_price] %> Грн.</p>
         <% end %>
 
         <% @data[:price_data].each do |item| %>

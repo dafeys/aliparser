@@ -1,4 +1,3 @@
-# app/services/page_parser_service.rb
 class PageParserService
   def initialize(url, rate)
     @url = url
@@ -14,8 +13,6 @@ class PageParserService
     rescue Selenium::WebDriver::Error::TimeoutError, Net::ReadTimeout
       puts "Navigation timed out"
     end
-
-    sleep(1)
 
     data = parse_page(driver)
 
@@ -59,8 +56,6 @@ class PageParserService
   end
 
   def parse_page(driver)
-    EasyTranslate.api_key = ENV['GOOGLE_TRANSLATE_API_KEY']
-
     data = {}
     @price_data = []
 
@@ -79,11 +74,8 @@ class PageParserService
     data[:price_data] = []
 
     data[:price_items].each do |item|
-      quality = item.find_element(:class, 'quality').text
-      price = item.find_element(:class, 'price').text
-
-      price = price.gsub('$', '').to_f
-
+      quality = item.find_element(:class, 'quality').text.gsub(/[a-zA-Z]/, '')
+      price = item.find_element(:class, 'price').text.gsub('$', '').to_f
       converted_price = (price * @rate.to_f).round(2)
 
       data[:price_data] << { quality: quality, price: converted_price }
@@ -100,6 +92,8 @@ class PageParserService
   end
 
   def translate(text)
+    EasyTranslate.api_key = ENV['GOOGLE_TRANSLATE_API_KEY']
+
     EasyTranslate.translate(text, to: :uk)
   end
 end
