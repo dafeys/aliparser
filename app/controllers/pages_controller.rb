@@ -1,15 +1,15 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_rate
 
   def index
+    # @rate = Rails.cache.fetch('currency_rate', expires_in: 1.hours) do
+    #   currency_service = CurrencyService.new
+    #   currency_service.get_currency_rate_buy
+    # end
   end
 
   def parse_site
-    @rate = Rails.cache.fetch('currency_rate', expires_in: 1.hours) do
-      currency_service = CurrencyService.new
-      currency_service.get_currency_rate_buy
-    end
-
     service = PageParserService.new(params[:url], @rate)
     @data = service.call
 
@@ -21,6 +21,10 @@ class PagesController < ApplicationController
   end
 
   private
+
+  def set_rate
+    @rate = CurrencyService.new.get_currency_rate_buy
+  end
 
   def authenticate_user!
     unless user_signed_in?
