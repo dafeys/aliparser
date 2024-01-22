@@ -1,0 +1,11 @@
+<div class="flex flex-col items-center min-h-screen bg-gray-100">
+  <div class="max-w-md px-8 pt-4 pb-4 m-4 bg-white rounded shadow-md">
+    <div id="parse_form">
+      <%= render partial: 'form', locals: { form: @data } %>
+    </div>
+  </div>
+
+  <div id="parsed_data">
+    <%= render partial: 'parsed_data', locals: { data: @data } %>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="container mx-auto p-4">
+  <h1 class="text-2xl font-bold mb-4">Product Presentation</h1>
+
+  <div class="flex">
+    <div class="w-1/2">
+      <img src="https://your-image-url.jpg" alt="Product Image" class="w-full">
+    </div>
+
+    <div class="w-1/2 pl-4">
+
+      <iframe id="siteIframe" src="https://detail.1688.com/offer/727123127589.html" width="100%" height="500"></iframe>
+
+      <button id="parseButton" class="bg-white text-blue-500 px-4 py-2 rounded-full hover:bg-gray-200">
+        Parse Site
+      </button>
+      <button id="saveButton">Save Iframe</button>
+
+      <%= form_with url: '/save_site', method: 'post', id: 'saveForm' do |form| %>
+        <%= form.hidden_field :content, id: 'contentField' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<script type="module">
+  import "parse";
+</script>
+<script>
+  document.getElementById('saveButton').addEventListener('click', saveWebpage);
+
+    function saveWebpage() {
+        const iframe = document.getElementById("siteIframe");
+        const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+        // Create a new Blob with the content of the iframe
+        const blob = new Blob([iframeDocument.documentElement.outerHTML], { type: 'text/html' });
+
+        // Create a link element to trigger the download
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'webpage.html';
+
+        // Append the link to the document and trigger a click event
+        document.body.appendChild(link);
+        link.click();
+
+        // Clean up by removing the link
+        document.body.removeChild(link);
+    }
+</script>
